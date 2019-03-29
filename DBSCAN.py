@@ -24,14 +24,13 @@ class algo:
   
     for p in nb:
       nbrhood=algo.neighbourhood(self,p)
-    
       if len(nbrhood)>=self.minPts:
         algo.Cluster(self,p,nbrhood,clr)
       else:
         for x in nbrhood:
-            if x[3]!='noise':
-              visited.remove(x)
+          points["cluster"].iloc[x[0]]=clr
         points["cluster"].iloc[p[0]]=clr
+        continue
       
 
   def DBSCAN(self):
@@ -56,10 +55,13 @@ if __name__=="__main__":
   i=0
   nbhd={}
   clstr={}
-  points=pd.DataFrame({'x':[rd.randint(0,10) for x in range(20)],
-  'y':[rd.randint(0,10) for x in range(20)],
+  points_1=pd.DataFrame({'x':[rd.randint(0,10) for x in range(50)],
+  'y':[rd.randint(0,10) for x in range(50)],
   'cluster':""
   })
-  obj=algo(points,3,4)
+  #points_1.to_csv("test.csv")
+  points=pd.read_csv("test.csv")
+  points.drop(points.columns[0],axis=1,inplace=True)
+  obj=algo(points,3,2)
   obj.DBSCAN()
   print(points)
