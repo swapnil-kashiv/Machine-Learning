@@ -30,7 +30,7 @@ class algo:
         for x in nbrhood:
           points["cluster"].iloc[x[0]]=clr
         points["cluster"].iloc[p[0]]=clr
-        continue
+        return ""
       
 
   def DBSCAN(self):
